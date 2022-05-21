@@ -4,14 +4,16 @@ import (
 	"bufio"
 	"bytes"
 	"os"
+	"strconv"
 	"strings"
 )
 
 // Book that records information
 var Book map[string]map[string]string = make(map[string]map[string]string)
+var Id int
 
 // Read file and save in map
-func ReadInformation(book map[string]map[string]string, filename string) map[string]map[string]string {
+func ReadData(book map[string]map[string]string, filename string) map[string]map[string]string {
 	file, err := os.Open(filename)
 	if err != nil {
 		os.Create(filename)
@@ -26,10 +28,16 @@ func ReadInformation(book map[string]map[string]string, filename string) map[str
 		fileScanner := bufio.NewScanner(file)
 
 		for fileScanner.Scan() {
-			val := fileScanner.Text()
-			a := strings.Split(bytes.NewBuffer([]byte(val)).String(), " ")
-			book[a[0]] = map[string]string{"name": a[1], "phone": a[2], "email": a[3]}
+			data := fileScanner.Text()
+			data_buffer := bytes.NewBuffer([]byte(data))
+			if len(data) == 1 {
+				Id, _ = strconv.Atoi(data_buffer.String())
+			}
+			slice := strings.Split(data_buffer.String(), " ")
+			book[slice[0]] = map[string]string{"name": slice[1], "phone": slice[2], "email": slice[3]}
 		}
+	} else {
+		Id = 1
 	}
 
 	return book
