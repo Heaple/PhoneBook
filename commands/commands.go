@@ -8,6 +8,15 @@ func Add(book map[string]map[string]string, input []string, id int) (map[string]
 	return book, id
 }
 
+func Del(book map[string]map[string]string, code string) map[string]map[string]string {
+	if _, exist := book[code]; exist {
+		delete(book, code)
+	} else {
+		fmt.Printf("Code %s data don't exists in book.\n", code)
+	}
+	return book
+}
+
 func List(book map[string]map[string]string) {
 	for key, elem := range book {
 		fmt.Printf("%s %s %s %s", key, elem["name"], elem["phone"], elem["email"])
