@@ -7,3 +7,9 @@ func Add(book map[string]map[string]string, input []string, id int) (map[string]
 	id += 1
 	return book, id
 }
+
+func List(book map[string]map[string]string) {
+	for key, elem := range book {
+		fmt.Printf("%s %s %s %s", key, elem["name"], elem["phone"], elem["email"])
+	}
+}
