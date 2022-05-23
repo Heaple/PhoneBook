@@ -26,6 +26,8 @@ func main() {
 		} else if text_slice[0] == "delete" {
 			*b = commands.Del(*b, text_slice[1][:4])
 			fmt.Printf("Deleted data. Code: %s\n", text_slice[1][:4])
+		} else if text_slice[0] == "find" {
+			commands.Find(*b, text_slice)
 		} else if text_slice[0][:4] == "list" {
 			commands.List(*b)
 		}
